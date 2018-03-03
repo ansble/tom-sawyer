@@ -1,6 +1,6 @@
 {
   "name": "tom-sawyer",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "a simple tool for updating docs and releasing code",
   "main": "index.js",
   "scripts": {
