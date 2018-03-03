@@ -1,5 +1,7 @@
 # Tom Sawyer
 
+![build status](https://travis-ci.org/ansble/tom-sawyer.svg?branch=master) 
+
 a simple module that updates authors, history, revs the version, publishes to
 npm, and pushes the tag and changes to git.
 
