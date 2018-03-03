@@ -1,0 +1,32 @@
+{
+  "name": "tom-sawyer",
+  "version": "1.0.0",
+  "description": "a simple tool for updating docs and releasing code",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava *.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ansble/tom-sawyer.git"
+  },
+  "keywords": [
+    "release",
+    "publish"
+  ],
+  "bin": {
+    "tomsawyer": "./index.js",
+    "tom": "./index.js"
+  },
+  "author": "Daniel Sellers",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ansble/tom-sawyer/issues"
+  },
+  "homepage": "https://github.com/ansble/tom-sawyer#readme",
+  "dependencies": {
+    "chalk": "^2.3.2",
+    "minimist": "^1.2.0"
+  },
+  "preferGlobal": "true"
+}
