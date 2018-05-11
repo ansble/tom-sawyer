@@ -25,7 +25,11 @@ cp.exec(gitLogCommand, (err, stdout) => {
 
   console.log('Updating the history.md file');
 
-  fs.writeFile('./history.md', `${historyHeader} ${stdout} \n\n\n ${history}`);
+  fs.writeFile('./history.md', `${historyHeader} ${stdout} \n\n\n ${history}`, (err) => {
+    if (err) {
+      console.log(err);
+    }
+  });
 
   cp.exec('git log --all --format="%aN <%aE>" | sort -u', (errLog, stdoutLog) => {
         // write out the Authors file with all contributors
