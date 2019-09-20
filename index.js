@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 'use strict';
 const minimist = require('minimist');
-const { exec, spawnSync } = require('child_process');
+const prompt = require('prompt');
+const { exec } = require('child_process');
 const { readFileSync, writeFileSync, existsSync } = require('fs');
 const { join } = require('path');
 const chalk = require('chalk');
@@ -36,40 +37,49 @@ exec(gitLogCommand, (_, stdout) => {
 
   log('Updating the history.md file');
 
-  // writeFileSync(
-  //   './history.md',
-  //   `${historyHeader} ${stdout.trim()} \n\n\n ${history}`
-  // );
+  writeFileSync(
+    './history.md',
+    `${historyHeader} ${stdout.trim()} \n\n\n ${history}`
+  );
 
   exec('git log --all --format="%aN <%aE>" | sort -u', (errLog, stdoutLog) => {
     // write out the Authors file with all contributors
     log('Updating the AUTHORS file');
 
-    // writeFileSync('./AUTHORS', stdoutLog);
+    writeFileSync('./AUTHORS', stdoutLog);
 
     exec('git add .', () => {
       exec(`git commit -m "preparing for release of v${newVersion}"`, () => {
         log('commited the automated updates');
         // run npm version
-        // exec(`npm version ${options.type}`, () => {
-        exec(`echo "httlo"`, () => {
+        exec(`npm version ${options.type}`, () => {
           log('npm version to rev for release');
           // ask for input
-          spawnSync('/bin/bash', ['npm', 'publish'], {
-            stdio: 'inherit',
-            stdin: 'inherit'
-          });
+          prompt.start();
+          prompt.get(
+            {
+              properties: {
+                otp: {
+                  description: 'If you are using 2FA for publishing enter it:',
+                  required: false
+                }
+              }
+            },
+            (_, result) => {
+              exec(`NPM_CONFIG_OTP=${result.otp} npm publish`, () => {
+                log('pushing to origin');
 
-          log('pushing to origin');
+                exec('git push origin HEAD', Function.prototype);
+                exec(`git push origin v${newVersion}`, errPush => {
+                  if (errPush) {
+                    log(errPush);
+                  }
 
-          exec('git push origin HEAD', Function.prototype);
-          exec(`git push origin v${newVersion}`, errPush => {
-            if (errPush) {
-              log(errPush);
+                  log(chalk.green('DONE! Congrats on the Release!'));
+                });
+              });
             }
-
-            log(chalk.green('DONE! Congrats on the Release!'));
-          });
+          );
         });
       });
     });
