@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 const minimist = require('minimist');
+const prompt = require('prompt');
 const { exec, spawnSync } = require('child_process');
 const { readFileSync, writeFileSync, existsSync } = require('fs');
 const { join } = require('path');
@@ -55,21 +56,32 @@ exec(gitLogCommand, (_, stdout) => {
         exec(`echo "httlo"`, () => {
           log('npm version to rev for release');
           // ask for input
-          spawnSync('/bin/bash', ['npm', 'publish'], {
-            stdio: 'inherit',
-            stdin: 'inherit'
-          });
-
-          log('pushing to origin');
-
-          exec('git push origin HEAD', Function.prototype);
-          exec(`git push origin v${newVersion}`, errPush => {
-            if (errPush) {
-              log(errPush);
+          prompt.start();
+          prompt.get(
+            {
+              properties: {
+                otp: {
+                  description: 'If you are using 2FA for publishing enter it:',
+                  required: false
+                }
+              }
+            },
+            (err, result) => {
+              console.log(err, result);
             }
+          );
+          // exec(`NPM_CONFIG_OTP=${otp} npm publish`, () => {
+          //   log('pushing to origin');
 
-            log(chalk.green('DONE! Congrats on the Release!'));
-          });
+          //   exec('git push origin HEAD', Function.prototype);
+          //   exec(`git push origin v${newVersion}`, errPush => {
+          //     if (errPush) {
+          //       log(errPush);
+          //     }
+
+          //     log(chalk.green('DONE! Congrats on the Release!'));
+          //   });
+          // });
         });
       });
     });
