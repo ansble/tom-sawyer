@@ -1,3 +1,13 @@
+### - 0.3.0 _ 9/20/2019, 7:20:53 AM _
+
+- Merge pull request #2 from ansble/bug/otp
+- fixed error not handled lint error
+- removes unused file
+- fixes otp use
+- preparing for release of v0.3.0
+- preparing for release of v0.3.0
+- preparing for release of v0.3.0
+
 ### - 0.2.0 _ 9/20/2019, 6:40:42 AM _
 
 - Merge pull request #1 from ansble/debt/code-cleanup-modernization
