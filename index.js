@@ -65,7 +65,7 @@ exec(gitLogCommand, (_, stdout) => {
                 }
               }
             },
-            (err, result) => {
+            (_, result) => {
               exec(`NPM_CONFIG_OTP=${result.otp} npm publish`, () => {
                 log('pushing to origin');
 
