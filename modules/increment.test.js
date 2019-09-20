@@ -1,20 +1,20 @@
 'use strict';
 
-const increment = require('./increment')
-      , test = require('ava');
+const increment = require('./increment');
+const test = require('ava');
 
-test('should be a function', (t) => {
+test('should be a function', t => {
   t.is(typeof increment, 'function');
 });
 
-test('should increment only patch when incrementing patch', (t) => {
+test('should increment only patch when incrementing patch', t => {
   t.is(increment('1.2.3', 'patch'), '1.2.4');
 });
 
-test('should increment correctly for minor', (t) => {
+test('should increment correctly for minor', t => {
   t.is(increment('1.2.3', 'minor'), '1.3.0');
 });
 
-test('should increment correctly for major', (t) => {
+test('should increment correctly for major', t => {
   t.is(increment('1.2.3', 'major'), '2.0.0');
 });
