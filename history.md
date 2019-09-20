@@ -1,3 +1,8 @@
+### - 0.2.0 _ 9/20/2019, 6:40:42 AM _
+
+- Merge pull request #1 from ansble/debt/code-cleanup-modernization
+- Modernizes the codebase
+
 ### - 0.1.8 _ 9/19/2019, 10:40:08 PM _
 
 - updated deps and fixed tests
