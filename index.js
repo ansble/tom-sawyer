@@ -55,7 +55,7 @@ exec(gitLogCommand, (_, stdout) => {
         exec(`echo "httlo"`, () => {
           log('npm version to rev for release');
           // ask for input
-          spawnSync('sh', ['npm', 'publish'], {
+          spawnSync('/bin/bash', ['npm', 'publish'], {
             stdio: 'inherit',
             stdin: 'inherit'
           });
