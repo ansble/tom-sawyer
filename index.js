@@ -36,25 +36,29 @@ exec(gitLogCommand, (_, stdout) => {
 
   log('Updating the history.md file');
 
-  writeFileSync(
-    './history.md',
-    `${historyHeader} ${stdout.trim()} \n\n\n ${history}`
-  );
+  // writeFileSync(
+  //   './history.md',
+  //   `${historyHeader} ${stdout.trim()} \n\n\n ${history}`
+  // );
 
   exec('git log --all --format="%aN <%aE>" | sort -u', (errLog, stdoutLog) => {
     // write out the Authors file with all contributors
     log('Updating the AUTHORS file');
 
-    writeFileSync('./AUTHORS', stdoutLog);
+    // writeFileSync('./AUTHORS', stdoutLog);
 
     exec('git add .', () => {
       exec(`git commit -m "preparing for release of v${newVersion}"`, () => {
         log('commited the automated updates');
         // run npm version
-        exec(`npm version ${options.type}`, () => {
+        // exec(`npm version ${options.type}`, () => {
+        exec(`echo "httlo"`, () => {
           log('npm version to rev for release');
           // ask for input
-          spawnSync('npm publish', [], { stdio: 'inherit', stdin: 'inherit' });
+          spawnSync('sh', ['npm', 'publish'], {
+            stdio: 'inherit',
+            stdin: 'inherit'
+          });
 
           log('pushing to origin');
 
